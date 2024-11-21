@@ -1,6 +1,7 @@
 """
 Unicaribe OpenData API
-API para la consulta de datos de estudiantes de la Universidad del Caribe, obtenidos con su consentimiento del sistema SIGMAA.
+API para la consulta de datos de estudiantes de la Universidad del Caribe, 
+obtenidos con su consentimiento del sistema SIGMAA.
 
 Autor: Unicaribe OpenData
 Versión: 0.0.1.dev
@@ -34,6 +35,8 @@ from datetime import datetime
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
+from models.welcome import Welcome
+
 @asynccontextmanager
 async def lifespan(the_app: FastAPI):
     """
@@ -59,7 +62,10 @@ app = FastAPI(
     terms_of_service="https://unicaribe.dev/terms",
 )
 
-@app.get("/", include_in_schema=False)
+@app.get(
+    "/", 
+    response_model=Welcome,
+    include_in_schema=False)
 async def root():
     """
     Ruta de bienvenida.
