@@ -59,7 +59,7 @@ app = FastAPI(
     terms_of_service="https://unicaribe.dev/terms",
 )
 
-@app.get("/", include_in_schema=True)
+@app.get("/", include_in_schema=False)
 async def root():
     """
     Ruta de bienvenida.
