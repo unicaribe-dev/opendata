@@ -36,6 +36,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from models.welcome import Welcome
+from routes.users import users
 
 @asynccontextmanager
 async def lifespan(the_app: FastAPI):
@@ -83,3 +84,5 @@ async def healthcheck():
     Ruta de verificación de estado.
     """
     return {"status": "ok"}
+
+app.include_router(users)
