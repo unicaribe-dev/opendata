@@ -28,3 +28,6 @@ jobs:
 
             - name: Subir imagen de Docker
               run: docker push $ORG/$NAMESPACE/$NAME:$TAG
+
+            - name: Disparar el webhook de App Service
+              run: curl -X POST ${{ secrets.WEBHOOK_URL_DEV }}
