@@ -67,11 +67,11 @@ async def root():
     """
     Ruta de bienvenida.
     """
-    message = {
-        "message": "Welcome to Unicaribe OpenData API",
-        "description": "Para acceder a la documentación de la API, visita /docs o /redoc",
-        "datetime": datetime.now().isoformat(),
-    }
+    message = Welcome(
+        message="Welcome to Unicaribe OpenData API",
+        description="Para acceder a la documentación de la API, visita /docs o /redoc"
+    )
+
     return message
 
 
