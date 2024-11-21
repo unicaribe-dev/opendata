@@ -31,12 +31,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
+
 from datetime import datetime
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from models.welcome import Welcome
 from routes.users import users
+
 
 @asynccontextmanager
 async def lifespan(the_app: FastAPI):
@@ -47,26 +49,20 @@ async def lifespan(the_app: FastAPI):
     yield
     print("Shutdown")
 
+
 app = FastAPI(
     title="Unicaribe OpenData API",
-    description="API para la consulta de datos de estudiantes de la Universidad del Caribe, obtenidos con su consentimiento del sistema SIGMAA",
+    description="API para la consulta de datos de estudiantes de la Universidad del Caribe,"
+                "obtenidos con su consentimiento del sistema SIGMAA",
     version="0.0.1.dev",
     lifespan=lifespan,
-    contact={
-        "name": "Unicaribe OpenData",
-        "url": "https://info.unicaribe.dev"
-    },
-    license_info={
-        "name": "MIT License",
-        "url": "https://opensource.org/licenses/MIT"
-    },
+    contact={"name": "Unicaribe OpenData", "url": "https://info.unicaribe.dev"},
+    license_info={"name": "MIT License", "url": "https://opensource.org/licenses/MIT"},
     terms_of_service="https://unicaribe.dev/terms",
 )
 
-@app.get(
-    "/", 
-    response_model=Welcome,
-    include_in_schema=False)
+
+@app.get("/", response_model=Welcome, include_in_schema=False)
 async def root():
     """
     Ruta de bienvenida.
@@ -74,9 +70,10 @@ async def root():
     message = {
         "message": "Welcome to Unicaribe OpenData API",
         "description": "Para acceder a la documentación de la API, visita /docs o /redoc",
-        "datetime": datetime.now().isoformat()
+        "datetime": datetime.now().isoformat(),
     }
     return message
+
 
 @app.get("/healthcheck", include_in_schema=False)
 async def healthcheck():
@@ -84,5 +81,6 @@ async def healthcheck():
     Ruta de verificación de estado.
     """
     return {"status": "ok"}
+
 
 app.include_router(users)
