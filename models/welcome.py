@@ -11,7 +11,7 @@ Derechos Reservados © 2024 Unicaribe OpenData. Todos los derechos reservados.
 """
 
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Welcome(BaseModel):
@@ -21,4 +21,4 @@ class Welcome(BaseModel):
 
     message: str
     description: str
-    detetime: datetime
+    timestamp: datetime = Field(default_factory=datetime.now)
